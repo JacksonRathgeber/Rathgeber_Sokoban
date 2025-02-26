@@ -44,7 +44,7 @@ public class SlickScript : MonoBehaviour
 
                 case "slick":
                 case "smooth":
-                    Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + x_in, grid_obj.gridPosition.y + y_in);
+                    Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in*2), grid_obj.gridPosition.y + (y_in*2));
                     if (cube_in_way.GetComponent<SlickScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
                     {
                         grid_obj.gridPosition = destination;

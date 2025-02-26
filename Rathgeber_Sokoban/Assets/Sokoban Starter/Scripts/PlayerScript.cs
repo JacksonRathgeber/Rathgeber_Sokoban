@@ -61,7 +61,7 @@ public class PlayerScript : MonoBehaviour
                         break;
 
                     case "slick": // [WIP] Pushable BY ANYTHING
-                    case "smooth";
+                    case "smooth":
                         Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in*2), grid_obj.gridPosition.y + (y_in*2));
                         if (cube_in_way.GetComponent<SlickScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
                         {
