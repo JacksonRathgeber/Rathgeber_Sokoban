@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4622493296140815978}
   - component: {fileID: 4622493296140815977}
   - component: {fileID: 4622493296140815988}
+  - component: {fileID: 6969581992440211588}
   m_Layer: 0
   m_Name: smooth
   m_TagString: Cube
@@ -124,3 +125,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPosition: {x: 4, y: 1}
+--- !u!114 &6969581992440211588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4622493296140815976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f61c570d73371a4598a17a0e016734a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

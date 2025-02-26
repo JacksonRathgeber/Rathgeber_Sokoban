@@ -54,36 +54,34 @@ public class PlayerScript : MonoBehaviour
             {
                 switch (cube_in_way.name)
                 {
-                    case "wall": // Immovable, stops all
-                        destination = grid_obj.gridPosition;
-                        Debug.Log("This is a wall.");
+                    case "wall": // [DONE] Immovable, stops all
                         break;
 
                     case "clingy": // Pullable BY ANYTHING, WILL REQUIRE REFACTOR
-                        destination = grid_obj.gridPosition;
-                        Debug.Log("This is a clingy.");
                         break;
 
-                    case "slick": // Pushable BY ANYTHING
-                        destination = grid_obj.gridPosition;
-                        Debug.Log("This is a slick.");
+                    case "slick": // [WIP] Pushable BY ANYTHING
+                    case "smooth";
+                        Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in*2), grid_obj.gridPosition.y + (y_in*2));
+                        if (cube_in_way.GetComponent<SlickScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
+                        {
+                            grid_obj.gridPosition = destination;
+                        }
                         break;
 
                     case "sticky":
                         // Mimics ALL adjacent blocks, WILL REQUIRE REFACTOR
-
-                        destination = grid_obj.gridPosition;
-                        Debug.Log("This is a sticky.");
                         break;
 
-                    default:
-                        destination = grid_obj.gridPosition;
-                        Debug.Log("NOT RECOGNIZED");
+                    default: // Error case
+                        Debug.Log("ERROR: PLAYER");
                         break;
                 }
             }
-
-            grid_obj.gridPosition = destination;
+            else
+            {
+                grid_obj.gridPosition = destination;
+            }
         }
     }
 }
