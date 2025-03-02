@@ -38,7 +38,9 @@ public class PlayerScript : MonoBehaviour
         if (x_in != 0 || y_in != 0)
         {
             GameObject cube_in_way = null;
+            GameObject cube_trailing = null;
             Vector2Int destination = new Vector2Int(grid_obj.gridPosition.x + x_in, grid_obj.gridPosition.y + y_in);
+            Vector2Int trail = new Vector2Int(grid_obj.gridPosition.x - x_in, grid_obj.gridPosition.y - y_in);
 
             foreach (GameObject cube in all_cubes)
             {
@@ -47,6 +49,10 @@ public class PlayerScript : MonoBehaviour
                 if (cube.GetComponent<GridObject>().gridPosition == destination)
                 {
                     cube_in_way = cube;
+                }
+                else if (cube.GetComponent<GridObject>().gridPosition == trail)
+                {
+                    cube_trailing = cube;
                 }
             }
 
@@ -60,7 +66,7 @@ public class PlayerScript : MonoBehaviour
                     case "clingy": // Pullable BY ANYTHING, WILL REQUIRE REFACTOR
                         break;
 
-                    case "slick": // [WIP] Pushable BY ANYTHING
+                    case "slick": // [DONE] Pushable BY ANYTHING
                     case "smooth":
                         Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in*2), grid_obj.gridPosition.y + (y_in*2));
                         if (cube_in_way.GetComponent<SlickScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
@@ -81,6 +87,29 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 grid_obj.gridPosition = destination;
+            }
+
+            if (cube_trailing != null)
+            {
+                switch (cube_trailing.name)
+                {
+                    // MAKE ALL CUBES OBEY BOUNDS OF GRID
+                    
+                    case "clingy": // Pullable BY ANYTHING, WILL REQUIRE REFACTOR
+                        Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x - x_in, grid_obj.gridPosition.y - y_in);
+                        if (cube_trailing.GetComponent<ClingyScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
+                        {
+                            grid_obj.gridPosition = destination;
+                        }
+                        break;
+
+                    case "sticky":
+                        // Mimics ALL adjacent blocks, WILL REQUIRE REFACTOR
+                        break;
+
+                    default: // Pulling an unpullable
+                        break;
+                }
             }
         }
     }
