@@ -18,19 +18,19 @@ public class PlayerScript : MonoBehaviour
         int x_in = 0;
         int y_in = 0;
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && grid_obj.gridPosition.y > 1)
         {
             y_in -= 1;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && grid_obj.gridPosition.y < 5)
         {
             y_in += 1;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) && grid_obj.gridPosition.x < 10)
         {
             x_in += 1;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && grid_obj.gridPosition.x > 1)
         {
             x_in -= 1;
         }

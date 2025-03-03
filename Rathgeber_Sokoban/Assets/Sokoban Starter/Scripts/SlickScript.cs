@@ -58,15 +58,22 @@ public class SlickScript : MonoBehaviour
                     break;
 
                 default:
-                    Debug.Log("ERROR: SLICK");
                     return false;
                     break;
             }
         }
         else
         {
-            grid_obj.gridPosition = destination;
-            return true;
+            if(destination.x >= 1 && destination.x <= 10 &&
+                destination.y >= 1 && destination.y <= 5)
+            {
+                grid_obj.gridPosition = destination;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
