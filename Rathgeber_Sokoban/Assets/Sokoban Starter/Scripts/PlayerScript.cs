@@ -41,7 +41,7 @@ public class PlayerScript : MonoBehaviour
             GameObject cube_trailing = null;
             Vector2Int destination = new Vector2Int(grid_obj.gridPosition.x + x_in, grid_obj.gridPosition.y + y_in);
             Vector2Int trail = new Vector2Int(grid_obj.gridPosition.x - x_in, grid_obj.gridPosition.y - y_in);
-
+            Vector2Int old_pos = grid_obj.gridPosition;
             foreach (GameObject cube in all_cubes)
             {
                 //var scripts = cube.GetComponents<MonoBehaviour>();
@@ -96,11 +96,7 @@ public class PlayerScript : MonoBehaviour
                     // MAKE ALL CUBES OBEY BOUNDS OF GRID
                     
                     case "clingy": // Pullable BY ANYTHING, WILL REQUIRE REFACTOR
-                        Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x - x_in, grid_obj.gridPosition.y - y_in);
-                        if (cube_trailing.GetComponent<ClingyScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
-                        {
-                            grid_obj.gridPosition = destination;
-                        }
+                        cube_trailing.GetComponent<ClingyScript>().CheckAndMove(old_pos, x_in, y_in);
                         break;
 
                     case "sticky":
