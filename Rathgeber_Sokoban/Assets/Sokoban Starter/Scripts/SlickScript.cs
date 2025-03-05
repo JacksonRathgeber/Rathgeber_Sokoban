@@ -3,25 +3,22 @@ using UnityEngine;
 public class SlickScript : MonoBehaviour
 {
     private GameObject[] all_cubes;
+    private bool moving = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         all_cubes = GameObject.FindGameObjectsWithTag("Cube");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    
     
     public bool CheckAndMove(Vector2Int destination, int x_in, int y_in)
     {
         var grid_obj = GetComponent<GridObject>();
         GameObject cube_in_way = null;
+        GameObject cube_to_side = null;
+        Vector2Int port = new Vector2Int(grid_obj.gridPosition.x + y_in, grid_obj.gridPosition.y + x_in);
+        Vector2Int starboard = new Vector2Int(grid_obj.gridPosition.x - y_in, grid_obj.gridPosition.y + x_in);
+        Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in * 2), grid_obj.gridPosition.y + (y_in * 2));
 
         foreach (GameObject cube in all_cubes)
         {
@@ -29,11 +26,15 @@ public class SlickScript : MonoBehaviour
             {
                 cube_in_way = cube;
             }
+            else if (cube.GetComponent<GridObject>().gridPosition == port ||
+                    (cube.GetComponent<GridObject>().gridPosition == starboard))
+            {
+
+                cube_to_side = cube;
+            }
         }
         if (cube_in_way != null)
         {
-            Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in * 2), grid_obj.gridPosition.y + (y_in * 2));
-
             switch (cube_in_way.name)
             {
                 case "slick":
@@ -41,20 +42,29 @@ public class SlickScript : MonoBehaviour
                     if (cube_in_way.GetComponent<SlickScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
                     {
                         grid_obj.gridPosition = destination;
-                        return true;
+                        moving = true;
                     }
-                    return false;
+                    else
+                    {
+                        moving = false;
+                    }
+                    break;
 
                 case "sticky":
                     if (cube_in_way.GetComponent<StickyScript>().InWayCheckAndMove(cube_dest, x_in, y_in) == true)
                     {
                         grid_obj.gridPosition = destination;
-                        return true;
+                        moving = true;
                     }
-                    return false;
+                    else
+                    {
+                        moving = false;
+                    }
+                    break;
 
                 default:
-                    return false;
+                    moving = false;
+                    break;
             }
         }
         else
@@ -63,12 +73,34 @@ public class SlickScript : MonoBehaviour
                 destination.y >= 1 && destination.y <= 5)
             {
                 grid_obj.gridPosition = destination;
-                return true;
+                moving = true;
             }
             else
             {
-                return false;
+                moving = false;
             }
         }
+
+        if (cube_to_side != null)
+        {
+            cube_dest = new Vector2Int(cube_to_side.GetComponent<GridObject>().gridPosition.x + x_in,
+                cube_to_side.GetComponent<GridObject>().gridPosition.y + y_in);
+
+            switch (cube_to_side.name)
+            {
+
+                case "sticky":
+                    if (moving)
+                    {
+                        cube_to_side.GetComponent<StickyScript>().InWayCheckAndMove(cube_dest, x_in, y_in);
+                    }
+                    break;
+
+                default:
+                    break;
+
+            }
+        }
+        return moving;
     }
 }
