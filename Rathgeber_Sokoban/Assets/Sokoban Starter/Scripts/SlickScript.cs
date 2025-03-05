@@ -32,34 +32,29 @@ public class SlickScript : MonoBehaviour
         }
         if (cube_in_way != null)
         {
+            Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in * 2), grid_obj.gridPosition.y + (y_in * 2));
+
             switch (cube_in_way.name)
             {
-                case "wall":
-                    return false;
-                    break;
-
-                case "clingy":
-                    return false;
-                    break;
-
                 case "slick":
                 case "smooth":
-                    Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in*2), grid_obj.gridPosition.y + (y_in*2));
                     if (cube_in_way.GetComponent<SlickScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
                     {
                         grid_obj.gridPosition = destination;
                         return true;
                     }
                     return false;
-                    break;
 
                 case "sticky":
+                    if (cube_in_way.GetComponent<StickyScript>().InWayCheckAndMove(cube_dest, x_in, y_in) == true)
+                    {
+                        grid_obj.gridPosition = destination;
+                        return true;
+                    }
                     return false;
-                    break;
 
                 default:
                     return false;
-                    break;
             }
         }
         else

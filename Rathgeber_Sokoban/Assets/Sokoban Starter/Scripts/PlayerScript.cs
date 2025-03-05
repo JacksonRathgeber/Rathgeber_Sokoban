@@ -58,6 +58,8 @@ public class PlayerScript : MonoBehaviour
 
             if (cube_in_way != null)
             {
+                Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in * 2), grid_obj.gridPosition.y + (y_in * 2));
+
                 switch (cube_in_way.name)
                 {
                     case "wall": // [DONE] Immovable, stops all
@@ -68,7 +70,6 @@ public class PlayerScript : MonoBehaviour
 
                     case "slick": // [DONE] Pushable BY ANYTHING
                     case "smooth":
-                        Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in*2), grid_obj.gridPosition.y + (y_in*2));
                         if (cube_in_way.GetComponent<SlickScript>().CheckAndMove(cube_dest, x_in, y_in) == true)
                         {
                             grid_obj.gridPosition = destination;
@@ -76,7 +77,10 @@ public class PlayerScript : MonoBehaviour
                         break;
 
                     case "sticky":
-                        // Mimics ALL adjacent blocks, WILL REQUIRE REFACTOR
+                        if (cube_in_way.GetComponent<StickyScript>().InWayCheckAndMove(cube_dest, x_in, y_in) == true)
+                        {
+                            grid_obj.gridPosition = destination;
+                        }
                         break;
 
                     default: // Error case
@@ -100,7 +104,7 @@ public class PlayerScript : MonoBehaviour
                         break;
 
                     case "sticky":
-                        // Mimics ALL adjacent blocks, WILL REQUIRE REFACTOR
+                        cube_trailing.GetComponent<StickyScript>().TrailingCheckAndMove(old_pos, x_in, y_in);
                         break;
 
                     default: // Pulling an unpullable

@@ -51,6 +51,10 @@ public class ClingyScript : MonoBehaviour
                         cube_trailing.GetComponent<ClingyScript>().CheckAndMove(old_pos, x_in, y_in);
                         break;
 
+                    case "sticky":
+                        cube_trailing.GetComponent<StickyScript>().TrailingCheckAndMove(old_pos, x_in, y_in);
+                        break;
+
                     default:
                         break;
                 }
