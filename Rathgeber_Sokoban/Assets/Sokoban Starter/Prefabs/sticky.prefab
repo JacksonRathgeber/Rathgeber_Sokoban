@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2883449981151806095}
   - component: {fileID: 2883449981151806094}
   - component: {fileID: 2883449981151806097}
+  - component: {fileID: 8935098498109917243}
   m_Layer: 0
   m_Name: sticky
   m_TagString: Cube
@@ -123,4 +124,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fb1c26a88bd5e4190b2d92ea660cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPosition: {x: 3, y: 1}
+  gridPosition: {x: 7, y: 4}
+--- !u!114 &8935098498109917243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883449981151806093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ca933936d1b394eb0afc1e6b8a6b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

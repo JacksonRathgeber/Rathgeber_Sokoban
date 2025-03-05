@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fb1c26a88bd5e4190b2d92ea660cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPosition: {x: 4, y: 1}
+  gridPosition: {x: 6, y: 2}
 --- !u!114 &6969581992440211588
 MonoBehaviour:
   m_ObjectHideFlags: 0

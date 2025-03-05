@@ -16,8 +16,10 @@ public class SlickScript : MonoBehaviour
         var grid_obj = GetComponent<GridObject>();
         GameObject cube_in_way = null;
         GameObject cube_to_side = null;
-        Vector2Int port = new Vector2Int(grid_obj.gridPosition.x + y_in, grid_obj.gridPosition.y + x_in);
-        Vector2Int starboard = new Vector2Int(grid_obj.gridPosition.x - y_in, grid_obj.gridPosition.y + x_in);
+        Vector2Int side_1 = new Vector2Int(grid_obj.gridPosition.x + 1, grid_obj.gridPosition.y);
+        Vector2Int side_2 = new Vector2Int(grid_obj.gridPosition.x - 1, grid_obj.gridPosition.y);
+        Vector2Int side_3 = new Vector2Int(grid_obj.gridPosition.x, grid_obj.gridPosition.y - 1);
+        Vector2Int side_4 = new Vector2Int(grid_obj.gridPosition.x, grid_obj.gridPosition.y + 1);
         Vector2Int cube_dest = new Vector2Int(grid_obj.gridPosition.x + (x_in * 2), grid_obj.gridPosition.y + (y_in * 2));
 
         foreach (GameObject cube in all_cubes)
@@ -26,8 +28,10 @@ public class SlickScript : MonoBehaviour
             {
                 cube_in_way = cube;
             }
-            else if (cube.GetComponent<GridObject>().gridPosition == port ||
-                    (cube.GetComponent<GridObject>().gridPosition == starboard))
+            else if (cube.GetComponent<GridObject>().gridPosition == side_1 ||
+                    (cube.GetComponent<GridObject>().gridPosition == side_2) ||
+                    cube.GetComponent<GridObject>().gridPosition == side_3 ||
+                    (cube.GetComponent<GridObject>().gridPosition == side_4))
             {
 
                 cube_to_side = cube;
