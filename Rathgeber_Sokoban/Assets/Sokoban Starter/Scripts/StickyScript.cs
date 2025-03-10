@@ -4,7 +4,7 @@ public class StickyScript : MonoBehaviour
 {
     private GameObject[] all_cubes;
     private bool moving = false;
-    private bool resolved = false;
+    public bool resolved = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -79,6 +79,7 @@ public class StickyScript : MonoBehaviour
                             cube_in_way.GetComponent<StickyScript>().resolved = true;
                             break;
                         }
+
                     }
                     break;
 
@@ -105,6 +106,10 @@ public class StickyScript : MonoBehaviour
         {
             switch (cube_trailing.name)
             {
+                case "clingy":
+                    cube_trailing.GetComponent<ClingyScript>().CheckAndMove(old_pos, x_in, y_in);
+                    break;
+
                 case "sticky":
                     if (cube_trailing.GetComponent<StickyScript>().resolved == false)
                     {
@@ -191,8 +196,8 @@ public class StickyScript : MonoBehaviour
                         {
                             grid_obj.gridPosition = destination;
                             moving = true;
-                            cube_in_way.GetComponent<StickyScript>().resolved = true;
                         }
+                        cube_in_way.GetComponent<StickyScript>().resolved = true;
                     }
                     break;
 
@@ -204,7 +209,7 @@ public class StickyScript : MonoBehaviour
         {
             grid_obj.gridPosition = destination;
 
-            if (cube_trailing != null)
+            if (cube_trailing != null && moving)
             {
                 switch (cube_trailing.name)
                 {
@@ -228,7 +233,7 @@ public class StickyScript : MonoBehaviour
 
             moving = true;
         }
-        if (cube_to_side != null)
+        if (cube_to_side != null && moving)
         {
             cube_dest = new Vector2Int(cube_to_side.GetComponent<GridObject>().gridPosition.x + x_in,
                 cube_to_side.GetComponent<GridObject>().gridPosition.y + y_in);

@@ -95,10 +95,14 @@ public class PlayerScript : MonoBehaviour
                         break;
 
                     case "sticky":
-                        if (cube_in_way.GetComponent<StickyScript>().InWayCheckAndMove(cube_dest, x_in, y_in) == true)
+                        if (cube_in_way.GetComponent<StickyScript>().resolved == false)
                         {
-                            grid_obj.gridPosition = destination;
-                            moving = true;
+                            if (cube_in_way.GetComponent<StickyScript>().InWayCheckAndMove(cube_dest, x_in, y_in) == true)
+                            {
+                                grid_obj.gridPosition = destination;
+                                moving = true;
+                            }
+                            cube_in_way.GetComponent<StickyScript>().resolved = true;
                         }
                         break;
 
@@ -124,7 +128,12 @@ public class PlayerScript : MonoBehaviour
                         break;
 
                     case "sticky":
-                        cube_trailing.GetComponent<StickyScript>().TrailingCheckAndMove(old_pos, x_in, y_in);
+                        if (cube_trailing.GetComponent<StickyScript>().resolved == false)
+                        {
+                            cube_trailing.GetComponent<StickyScript>().TrailingCheckAndMove(old_pos, x_in, y_in);
+                            cube_trailing.GetComponent<StickyScript>().resolved = true;
+
+                        }
                         break;
 
                     default: // Pulling an unpullable
@@ -140,9 +149,13 @@ public class PlayerScript : MonoBehaviour
                 switch (cube_to_side.name) {
 
                     case "sticky":
-                        if (moving)
+                        if (cube_to_side.GetComponent<StickyScript>().resolved == false)
                         {
-                            cube_to_side.GetComponent<StickyScript>().InWayCheckAndMove(cube_dest, x_in, y_in);
+                            if (moving)
+                            {
+                                cube_to_side.GetComponent<StickyScript>().InWayCheckAndMove(cube_dest, x_in, y_in);
+                            }
+                            cube_to_side.GetComponent<StickyScript>().resolved = true;
                         }
                         break;
 
